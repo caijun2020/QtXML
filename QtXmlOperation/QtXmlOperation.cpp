@@ -8,7 +8,6 @@ PURPOSE:        Provide XML read/write operation
 
 #include "QtXmlOperation.h"
 #include <QFile>
-//#include <QDomElement>
 #include <QTextStream>
 #include <QStringList>
 #include <QDir>
@@ -171,7 +170,13 @@ bool QtXmlOperation::isFileOpen()
 
     if(isFileExist())
     {
-        ret = true;
+        if(NULL != m_file)
+        {
+            if(m_file->isOpen())
+            {
+                ret = true;
+            }
+        }
     }
 
     return ret;
@@ -436,10 +441,6 @@ int QtXmlOperation::getNodeCount(QString nodeNames)
 QDomElement QtXmlOperation::getRootElement()
 {
     QDomElement root = m_doc->documentElement();
-
-    if(!root.isNull())
-    {
-    }
 
     return root;
 }
